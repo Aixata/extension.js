@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import {type Compilation} from 'webpack'
+import {type Compilation} from '@rspack/core'
 import {type IncludeList, type Manifest} from '../types'
 
 function isUsingReact(projectDir: string) {

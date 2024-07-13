@@ -5,30 +5,33 @@
 // ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
-import path from 'path'
-import type webpack from 'webpack'
-import CommonErrorsPlugin from 'webpack-browser-extension-common-errors'
+import fs from 'fs'
 import {type DevOptions} from '../../extensionDev'
 
-export default function errorPlugins(
+// https://rspack.js.org/configuration/devtool/
+export default function getDevToolOption(
   projectPath: string,
-  {mode, browser}: DevOptions
+  mode: DevOptions['mode']
 ) {
-  return {
-    constructor: {name: 'ErrorPlugin'},
-    apply: (compiler: webpack.Compiler) => {
-      const manifestPath = path.resolve(projectPath, 'manifest.json')
+  const manifestPath = `${projectPath}/manifest.json`
+  const manifestExists = fs.lstatSync(manifestPath)
 
-      // TODO: combine all extension context errors into one.
-      // new CombinedErrorsPlugin().apply(compiler)
-
-      // TODO: Combine common config errors and output a nice error display.
-      // new ErrorLayerPlugin().apply(compiler)
-
-      // Handle common user mistakes and webpack errors.
-      new CommonErrorsPlugin({
-        manifestPath
-      }).apply(compiler)
-    }
+  if (!manifestExists) {
+    console.log(
+      '🚨 - Error while developing the extension: manifest.json not found'
+    )
+    process.exit(1)
   }
+
+  const manifest = require(manifestPath)
+
+  if (mode === 'production') return undefined
+
+  // MV3 doesn't allow eval.
+  // Ref https://github.com/awesome-webextension/webpack-target-webextension/blob/master/examples/hmr-mv3/rspack.config.js#L7
+  if (manifest.manifest_version === 3) {
+    return 'cheap-source-map'
+  }
+
+  return 'eval-cheap-source-map'
 }

@@ -6,12 +6,12 @@
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
 import path from 'path'
-import {type PathData, type Compiler} from 'webpack'
+import {type Compiler} from '@rspack/core'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import StylelintPlugin from 'stylelint-webpack-plugin'
 import {VueLoaderPlugin} from 'vue-loader'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import rspack from '@rspack/core'
 
 import {type DevOptions} from '../../extensionDev'
 import {isUsingTypeScript, tsCheckerOptions} from '../options/typescript'
@@ -25,10 +25,12 @@ export default function compilationPlugins(
   return {
     constructor: {name: 'CompilationPlugins'},
     apply: (compiler: Compiler) => {
+      // @ts-expect-error this is a rspack plugin
       new CaseSensitivePathsPlugin().apply(compiler)
 
       if (isUsingTypeScript(projectDir)) {
         const options = tsCheckerOptions(projectDir, opts)
+        // @ts-expect-error this is a rspack plugin
         new ForkTsCheckerWebpackPlugin(options).apply(compiler)
       }
 
@@ -41,9 +43,11 @@ export default function compilationPlugins(
         exclude: ['node_modules', path.join(projectDir, 'node_modules')]
         // TODO: cezaraugusto evaluate
         // failOnWarning: true
+        // @ts-expect-error this is a rspack plugin
       }).apply(compiler)
 
-      new MiniCssExtractPlugin({
+      new rspack.CssExtractRspackPlugin({
+        // @ts-expect-error this is a rspack plugin
         chunkFilename: (pathData: PathData) => {
           const runtime = (pathData.chunk as any)?.runtime
 
@@ -69,6 +73,7 @@ export default function compilationPlugins(
       }).apply(compiler)
 
       if (isUsingVue(projectDir)) {
+        // @ts-expect-error this is a rspack plugin
         new VueLoaderPlugin().apply(compiler)
       }
     }

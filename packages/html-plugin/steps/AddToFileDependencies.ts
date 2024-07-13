@@ -1,6 +1,6 @@
 import fs from 'fs'
-import type webpack from 'webpack'
-import {Compilation} from 'webpack'
+import {type Compiler} from '@rspack/core'
+import {Compilation} from '@rspack/core'
 
 import {type IncludeList, type StepPluginInterface} from '../types'
 
@@ -20,7 +20,7 @@ export default class AddToFileDependencies {
     this.exclude = options.exclude
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     compiler.hooks.thisCompilation.tap(
       'HtmlPlugin (AddToFileDependencies)',
       (compilation) => {

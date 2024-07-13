@@ -6,7 +6,7 @@
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
 import path from 'path'
-import type webpack from 'webpack'
+import {Compiler} from '@rspack/core'
 import type {DevOptions} from '../../extensionDev'
 
 // Plugins
@@ -63,7 +63,7 @@ export default function extensionPlugins(
 
   return {
     constructor: {name: 'ExtensionPlugin'},
-    apply: (compiler: webpack.Compiler) => {
+    apply: (compiler: Compiler) => {
       new ResolvePlugin({
         manifestPath,
         // In addition to manifest fields, ensure we can
@@ -75,7 +75,7 @@ export default function extensionPlugins(
         }
       }).apply(compiler)
 
-      // Generate a manifest file with all the assets we need
+      // // Generate a manifest file with all the assets we need
       new ManifestPlugin({
         browser,
         manifestPath,

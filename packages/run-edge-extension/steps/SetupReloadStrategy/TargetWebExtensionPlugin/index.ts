@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import WebExtension from 'webpack-target-webextension'
 import {red, bold} from '@colors/colors/safe'
 import {type RunEdgeExtensionInterface, type Manifest} from '../../../types'
@@ -13,7 +13,7 @@ class TargetWebExtensionPlugin {
     this.manifestPath = options.manifestPath
   }
 
-  private handleBackground(compiler: webpack.Compiler, manifest: Manifest) {
+  private handleBackground(compiler: Compiler, manifest: Manifest) {
     const minimumBgScript = path.resolve(
       __dirname,
       'minimum-background-file.mjs'
@@ -55,7 +55,7 @@ class TargetWebExtensionPlugin {
   }
 
   private addDefaultEntry(
-    compiler: webpack.Compiler,
+    compiler: Compiler,
     name: string,
     defaultScript: string
   ) {
@@ -80,7 +80,7 @@ class TargetWebExtensionPlugin {
     return {pageEntry: 'background'}
   }
 
-  public apply(compiler: webpack.Compiler) {
+  public apply(compiler: Compiler) {
     if (!this.manifestPath || !fs.lstatSync(this.manifestPath).isFile()) {
       return
     }
@@ -92,6 +92,7 @@ class TargetWebExtensionPlugin {
     new WebExtension({
       background: this.getEntryName(manifest),
       weakRuntimeCheck: true
+      // @ts-expect-error this is a rspack plugin
     }).apply(compiler)
   }
 }

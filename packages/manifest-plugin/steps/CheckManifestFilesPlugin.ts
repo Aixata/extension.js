@@ -1,5 +1,5 @@
 import fs from 'fs'
-import webpack, {Compilation, type Compiler} from 'webpack'
+import rspack, {Compilation, type Compiler} from '@rspack/core'
 import manifestFields from 'browser-extension-manifest-fields'
 import errors from '../helpers/messages'
 import utils from '../helpers/utils'
@@ -13,7 +13,7 @@ class CheckManifestFilesPlugin {
 
   private handleHtmlErrors(
     compilation: Compilation,
-    WebpackError: typeof webpack.WebpackError
+    WebpackError: typeof rspack.WebpackError
   ) {
     const manifest = utils.getManifestContent(compilation, this.manifestPath)
     const htmlFields = manifestFields(this.manifestPath, manifest).html
@@ -31,7 +31,7 @@ class CheckManifestFilesPlugin {
 
   private handleIconsErrors(
     compilation: Compilation,
-    WebpackError: typeof webpack.WebpackError
+    WebpackError: typeof rspack.WebpackError
   ) {
     const manifest = utils.getManifestContent(compilation, this.manifestPath)
     const iconsFields = manifestFields(this.manifestPath, manifest).icons
@@ -83,7 +83,7 @@ class CheckManifestFilesPlugin {
 
   private handleJsonErrors(
     compilation: Compilation,
-    WebpackError: typeof webpack.WebpackError
+    WebpackError: typeof rspack.WebpackError
   ) {
     const manifest = utils.getManifestContent(compilation, this.manifestPath)
     const jsonFields = manifestFields(this.manifestPath, manifest).json
@@ -101,7 +101,7 @@ class CheckManifestFilesPlugin {
 
   private handleScriptsErrors(
     compilation: Compilation,
-    WebpackError: typeof webpack.WebpackError
+    WebpackError: typeof rspack.WebpackError
   ) {
     const manifest = utils.getManifestContent(compilation, this.manifestPath)
     const scriptsFields = manifestFields(this.manifestPath, manifest).scripts
@@ -142,7 +142,7 @@ class CheckManifestFilesPlugin {
             stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_COMPATIBILITY
           },
           () => {
-            const WebpackError = webpack.WebpackError
+            const WebpackError = rspack.WebpackError
             // Handle HTML errors.
             this.handleHtmlErrors(compilation, WebpackError)
 

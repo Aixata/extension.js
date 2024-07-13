@@ -99,7 +99,7 @@ export default function getHtmlResources(htmlFilePath: string) {
     return {
       // Assets from HTML pages to copy to the outputFilePath path
       css: [...headAssets.css, ...bodyAssets.css],
-      // Assets frorm HTML pages to use as webpack entries
+      // Assets frorm HTML pages to use as rspack entries
       js: [...headAssets.js, ...bodyAssets.js],
       // Assets frorm HTML pages to copy to the outputFilePath path
       static: [...headAssets.static, ...bodyAssets.static],

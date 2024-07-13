@@ -17,12 +17,12 @@ const assertFileIsNotEmitted = async (filePath: string) => {
 
 describe('ScriptsPlugin (default behavior)', () => {
   const fixturesPath = getFixturesPath('scripting')
-  const webpackConfigPath = path.join(fixturesPath, 'webpack.config.js')
+  const rspackConfigPath = path.join(fixturesPath, 'rspack.config.js')
   const outputPath = path.resolve(fixturesPath, 'dist')
 
   beforeAll((done) => {
     exec(
-      `npx webpack --config ${webpackConfigPath}`,
+      `npx rspack --config ${rspackConfigPath}`,
       {cwd: fixturesPath},
       (error, stdout, stderr) => {
         if (error) {
@@ -56,12 +56,12 @@ describe('ScriptsPlugin (default behavior)', () => {
 
 describe('ScriptsPlugin (edge cases)', () => {
   const fixturesPath = getFixturesPath('scripting-nojs')
-  const webpackConfigPath = path.join(fixturesPath, 'webpack.config.js')
+  const rspackConfigPath = path.join(fixturesPath, 'rspack.config.js')
   const outputPath = path.resolve(fixturesPath, 'dist')
 
   beforeAll((done) => {
     exec(
-      `npx webpack --config ${webpackConfigPath}`,
+      `npx rspack --config ${rspackConfigPath}`,
       {cwd: fixturesPath},
       (error, stdout, stderr) => {
         if (error) {

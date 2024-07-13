@@ -5,6 +5,6 @@
 
 # webpack-browser-extension-manifest [![workflow][action-image]][action-url] [![npm][npm-image]][npm-url]
 
-> webpack plugin to validate, resolve, and build your manifest file.
+> rspack plugin to validate, resolve, and build your manifest file.
 
 TODO

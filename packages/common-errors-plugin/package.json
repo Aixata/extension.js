@@ -9,7 +9,7 @@
   },
   "name": "webpack-browser-extension-common-errors",
   "version": "1.1.2",
-  "description": "webpack plugin to handle common errors from browser extensions",
+  "description": "rspack plugin to handle common errors from browser extensions",
   "main": "./dist/module.js",
   "types": "./dist/module.d.ts",
   "files": [
@@ -28,7 +28,7 @@
     "test": "echo \"Note: no test specified\" && exit 0"
   },
   "keywords": [
-    "webpack",
+    "@rspack/core",
     "plugin",
     "browser",
     "web",
@@ -38,7 +38,7 @@
     "manifest.json"
   ],
   "peerDependencies": {
-    "webpack": "~5.92.0"
+    "@rspack/core": "0.7.5"
   },
   "dependencies": {
     "@colors/colors": "^1.6.0",
@@ -50,7 +50,7 @@
     "eslint-config-extension-create": "*",
     "tsconfig": "*",
     "tsup": "^8.0.1",
-    "webpack": "~5.92.0",
+    "@rspack/core": "0.7.5",
     "webpack-cli": "^5.1.4"
   }
 }

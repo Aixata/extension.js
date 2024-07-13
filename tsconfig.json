@@ -1,11 +1,15 @@
 {
+  "compilerOptions": {
+    "allowJs": true
+  },
   "extends": "./packages/tsconfig/base.json",
-  "include": ["."],
+  "include": [".", "packages/eslint-config-extension-create/index.js"],
   "exclude": [
     "**/dist",
     "node_modules",
     "browser-extension-test-data",
     "__TEST__",
-    "programs/create/templates/**"
+    "programs/create/templates/**",
+    "packages/webpack-target-webextension"
   ]
 }

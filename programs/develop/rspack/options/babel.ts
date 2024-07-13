@@ -33,7 +33,7 @@ export function getBabelConfigFile(projectDir: string) {
 export function babelConfig(projectDir: string, opts: any) {
   return {
     // When set, the given directory will be used to cache the results
-    // of the loader. Future webpack builds will attempt to read from
+    // of the loader. Future rspack builds will attempt to read from
     // the cache to avoid needing to run the potentially expensive Babel
     // recompilation process on each run. If the value is set to true in
     // options ({cacheDirectory: true}), the loader will use the default

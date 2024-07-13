@@ -1,4 +1,4 @@
-import {type Compiler, Compilation, sources} from 'webpack'
+import {type Compiler, Compilation, sources} from '@rspack/core'
 import manifestFields from 'browser-extension-manifest-fields'
 import {type WebResourcesPluginInterface, type Manifest} from '../../types'
 

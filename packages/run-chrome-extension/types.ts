@@ -23,6 +23,6 @@ export type StatsPreset =
   | 'normal' // Alternative:	true - Standard output
   | 'verbose' // Alternative: none - Output everything
   | 'detailed' // Alternative: none - Output everything except chunkModules and chunkRootModules
-  | 'summary' // Alternative: none - Output webpack version, warnings count and errors count
+  | 'summary' // Alternative: none - Output rspack version, warnings count and errors count
 
 export type Manifest = ManifestBase

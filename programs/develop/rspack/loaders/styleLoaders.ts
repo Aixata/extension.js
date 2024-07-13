@@ -5,7 +5,7 @@ export default function styleLoaders(projectDir: string, opts: any) {
     {
       test: /\.css$/,
       exclude: /\.module\.css$/,
-      type: 'javascript/auto',
+      type: 'css/auto',
       // https://stackoverflow.com/a/60482491/4902448
       oneOf: [
         {
@@ -27,7 +27,7 @@ export default function styleLoaders(projectDir: string, opts: any) {
     },
     {
       test: /\.module\.css$/,
-      type: 'javascript/auto',
+      type: 'css/auto',
       // https://stackoverflow.com/a/60482491/4902448
       use: getCommonStyleLoaders(projectDir, {
         regex: /\.module\.css$/,
@@ -46,7 +46,12 @@ export default function styleLoaders(projectDir: string, opts: any) {
             regex: /\.(scss|sass)$/,
             loader: require.resolve('sass-loader'),
             mode: opts.mode,
-            useMiniCssExtractPlugin: false
+            useMiniCssExtractPlugin: false,
+            api: 'modern-compiler',
+            // using `modern-compiler` and `sass-embedded` together
+            // significantly improve build performance,
+            // requires `sass-loader >= 14.2.1`
+            implementation: require.resolve('sass-embedded')
           })
         },
         {
@@ -71,6 +76,7 @@ export default function styleLoaders(projectDir: string, opts: any) {
     },
     {
       test: /\.less$/,
+      type: 'css/auto', // 👈
       exclude: /\.module\.css$/,
       // https://stackoverflow.com/a/60482491/4902448
       oneOf: [

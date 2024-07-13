@@ -1,4 +1,4 @@
-import {type Compiler, sources} from 'webpack'
+import {type Compiler, sources} from '@rspack/core'
 
 interface Options {
   manifestPath: string

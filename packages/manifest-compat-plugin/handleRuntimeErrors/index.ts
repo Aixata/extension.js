@@ -1,11 +1,11 @@
-import type webpack from 'webpack'
+import {type Compilation} from '@rspack/core'
 import handleInsecureCSPValueError from './handleInsecureCSPValueError'
 import handleWrongWebResourceFormatError from './handleWrongWebResourceFormatError'
 import handleFirefoxRunningServiceWorkerError from './handleFirefoxRunningServiceWorkerError'
 import {type ManifestBase} from '../manifest-types'
 
 export default function handleRuntimeErrors(
-  compilation: webpack.Compilation,
+  compilation: Compilation,
   manifest: ManifestBase,
   browser: string
 ) {

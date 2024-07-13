@@ -1,5 +1,5 @@
 import fs from 'fs'
-import {type Compiler} from 'webpack'
+import {type Compiler} from '@rspack/core'
 import {type ManifestCompatInterface} from './types'
 import handleSchemaErrors from './handleSchemaErrors'
 import handleRuntimeErrors from './handleRuntimeErrors'

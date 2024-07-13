@@ -9,7 +9,7 @@
   },
   "name": "webpack-browser-extension-html",
   "version": "1.1.1",
-  "description": "webpack plugin to handle HTML assets from browser extensions",
+  "description": "rspack plugin to handle HTML assets from browser extensions",
   "main": "./dist/module.js",
   "types": "./dist/module.d.ts",
   "files": [
@@ -31,7 +31,7 @@
     "test": "jest"
   },
   "keywords": [
-    "webpack",
+    "@rspack/core",
     "plugin",
     "browser",
     "web",
@@ -45,7 +45,7 @@
     "manifest.json"
   ],
   "peerDependencies": {
-    "webpack": "~5.92.0"
+    "@rspack/core": "0.7.5"
   },
   "dependencies": {
     "browser-extension-manifest-fields": "*",
@@ -67,7 +67,7 @@
     "ts-jest": "^29.1.2",
     "tsconfig": "*",
     "tsup": "^8.0.1",
-    "webpack": "~5.92.0",
+    "@rspack/core": "0.7.5",
     "webpack-cli": "^5.1.4",
     "webpack-target-webextension": "^1.1.0"
   }

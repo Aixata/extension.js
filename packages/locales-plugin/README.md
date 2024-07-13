@@ -5,6 +5,6 @@
 
 # webpack-browser-extension-locales [![workflow][action-image]][action-url] [![npm][npm-image]][npm-url]
 
-> webpack plugin to handle locale assets from browser extensions
+> rspack plugin to handle locale assets from browser extensions
 
 TODO

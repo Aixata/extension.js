@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import manifestFields from 'browser-extension-manifest-fields'
 import utils from '../helpers/utils'
 import {type WebResourcesPluginInterface} from '../../types'
@@ -30,7 +30,7 @@ export default class OutputWebAccessibleResourcesFolder {
     return contentScriptsCss
   }
 
-  apply(compiler: webpack.Compiler) {
+  apply(compiler: Compiler) {
     compiler.hooks.afterCompile.tapAsync(
       'WebResourcesPlugin (AutoParseWebResourcesFolder)',
       (compilation, done) => {
@@ -55,7 +55,7 @@ export default class OutputWebAccessibleResourcesFolder {
               }
             } else {
               // Manifest V3
-              resource.forEach((resourcePath, index) => {
+              resource.forEach((resourcePath: any, index: any) => {
                 const isContentCss = contentScriptsCss?.some(
                   ([key]) => key === resourcePath
                 )

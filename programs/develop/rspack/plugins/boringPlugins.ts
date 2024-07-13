@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import colors, {bold, blue, yellow} from '@colors/colors/safe'
 import Dotenv from 'dotenv-webpack'
 import CleanHotUpdatesPlugin from './CleanHotUpdatesPlugin'
@@ -15,7 +15,7 @@ export default function boringPlugins(projectPath: string, {mode}: DevOptions) {
 
   return {
     constructor: {name: 'BoringPlugin'},
-    apply: (compiler: webpack.Compiler) => {
+    apply: (compiler: Compiler) => {
       // Writes the project name and version to the terminal
       compiler.hooks.done.tap('BoringPlugin', (stats) => {
         const divider = stats.hasErrors()

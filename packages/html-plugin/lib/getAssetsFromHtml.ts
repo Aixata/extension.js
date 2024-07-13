@@ -67,7 +67,7 @@ export default function getAssetsFromHtml(
     return {
       // Assets from HTML pages to copy to the outputFilePath path
       css: assets.css,
-      // Assets frorm HTML pages to use as webpack entries
+      // Assets frorm HTML pages to use as rspack entries
       js: assets.js,
       // Assets frorm HTML pages to copy to the outputFilePath path
       static: assets.static

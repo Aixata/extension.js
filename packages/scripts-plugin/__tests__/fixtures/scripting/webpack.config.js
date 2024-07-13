@@ -1,8 +1,8 @@
 const path = require('path')
-const webpack = require('webpack')
+const rspack = require('@rspack/core')
 const ScriptsPlugin = require('../../../dist/module').default
 
-/** @type {webpack.Configuration} */
+/** @type {rspack.Configuration} */
 const config = {
   devtool: 'cheap-source-map',
   mode: 'development',
@@ -11,9 +11,6 @@ const config = {
     path: path.resolve(__dirname, 'dist')
   },
   experiments: {
-    // Enable native CSS support. Note that it's an experimental feature still under development
-    // and will be enabled by default in webpack v6, however you can track the progress on GitHub
-    // here: https://github.com/webpack/webpack/issues/14893.
     css: true
   },
   plugins: [

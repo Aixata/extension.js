@@ -9,7 +9,7 @@
   },
   "name": "webpack-browser-extension-manifest-compat",
   "version": "1.1.2",
-  "description": "webpack plugin to handle browser extensions incompatibilities",
+  "description": "rspack plugin to handle browser extensions incompatibilities",
   "main": "./dist/module.js",
   "types": "./dist/module.d.ts",
   "author": {
@@ -28,7 +28,7 @@
     "dist"
   ],
   "keywords": [
-    "webpack",
+    "@rspack/core",
     "plugin",
     "browser",
     "web",
@@ -42,7 +42,7 @@
     "validate"
   ],
   "peerDependencies": {
-    "webpack": "~5.92.0"
+    "@rspack/core": "0.7.5"
   },
   "dependencies": {
     "@mdn/browser-compat-data": "^5.5.7",
@@ -55,7 +55,7 @@
     "eslint-config-extension-create": "*",
     "tsconfig": "*",
     "tsup": "^8.0.1",
-    "webpack": "~5.92.0",
+    "@rspack/core": "0.7.5",
     "webpack-cli": "^5.1.4"
   }
 }

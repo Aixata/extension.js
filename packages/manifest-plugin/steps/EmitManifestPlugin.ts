@@ -1,6 +1,6 @@
 import fs from 'fs'
-import type webpack from 'webpack'
-import {sources} from 'webpack'
+import {type Compiler} from '@rspack/core'
+import {sources} from '@rspack/core'
 import errors from '../helpers/errors'
 
 interface Options {
@@ -14,12 +14,12 @@ export default class EmitManifestPlugin {
     this.options = options
   }
 
-  apply(compiler: webpack.Compiler): void {
+  apply(compiler: Compiler): void {
     compiler.hooks.thisCompilation.tap(
       'ManifestPlugin (EmitManifestPlugin)',
       (compilation) => {
         // Fired when the compilation stops accepting new modules.
-        compilation.hooks.seal.tap(
+        compilation.hooks.afterProcessAssets.tap(
           'ManifestPlugin (EmitManifestPlugin)',
           () => {
             // Do not emit manifest if it doesn't exist.

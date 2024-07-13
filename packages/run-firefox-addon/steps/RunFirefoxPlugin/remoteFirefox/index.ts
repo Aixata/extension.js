@@ -1,5 +1,5 @@
 import path from 'path'
-import {type Compiler} from 'webpack'
+import {type Compiler} from '@rspack/core'
 import {bgWhite, red, bold} from '@colors/colors/safe'
 import MessagingClient from './MessagingClient'
 import {type RunFirefoxExtensionInterface} from '../../../types'

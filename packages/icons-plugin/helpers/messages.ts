@@ -1,7 +1,7 @@
-import webpack from 'webpack'
+import rspack, {type Compilation} from '@rspack/core'
 
 function entryNotFoundWarn(
-  compilation: webpack.Compilation,
+  compilation: Compilation,
   feature: string,
   iconFilePath: string
 ) {
@@ -9,7 +9,7 @@ function entryNotFoundWarn(
   const errorMessage = `File path \`${iconFilePath}\` not found. ${hintMessage}`
 
   compilation.warnings.push(
-    new webpack.WebpackError(`[manifest.json]: ${errorMessage}`)
+    new rspack.WebpackError(`[manifest.json]: ${errorMessage}`)
   )
 }
 

@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import {type IncludeList, type StepPluginInterface} from '../types'
 import errors from '../helpers/errors'
 
@@ -11,7 +11,7 @@ export default class CommonErrorsPlugin {
     this.includeList = options.includeList
   }
 
-  apply(compiler: webpack.Compiler) {
+  apply(compiler: Compiler) {
     compiler.hooks.compilation.tap(
       'HtmlPlugin (HandleCommonErrors)',
       (compilation) => {

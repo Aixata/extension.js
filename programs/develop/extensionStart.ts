@@ -5,10 +5,10 @@
 // ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
-import webpack from 'webpack'
+import {rspack} from '@rspack/core'
 import {bold, red} from '@colors/colors/safe'
 import getProjectPath from './steps/getProjectPath'
-import compilerConfig from './webpack/webpack-config'
+import compilerConfig from './rspack/rspack-config'
 import * as messages from './messages/startMessage'
 
 export interface StartOptions {
@@ -30,21 +30,21 @@ export default async function extensionStart(
 
   try {
     const browser = startOptions.browser || 'chrome'
-    const webpackConfig = compilerConfig(projectPath, {
+    const rspackConfig = compilerConfig(projectPath, {
       mode: 'production',
       browser
     })
 
     messages.building(startOptions)
 
-    webpack(webpackConfig).run((err, stats) => {
+    rspack(rspackConfig).run((err, stats) => {
       if (err) {
         console.error(err.stack || err)
         process.exit(1)
       }
 
       if (!stats?.hasErrors()) {
-        messages.startWebpack(projectPath, startOptions)
+        messages.startRspack(projectPath, startOptions)
 
         setTimeout(() => {
           messages.ready(startOptions)

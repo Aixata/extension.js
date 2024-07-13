@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {Compiler} from '@rspack/core'
 import {
   handleMultipleAssetsError,
   handleTopLevelAwaitError,
@@ -13,7 +13,7 @@ export default class CommonErrorsPlugin {
     this.manifestPath = options.manifestPath
   }
 
-  apply(compiler: webpack.Compiler) {
+  apply(compiler: Compiler) {
     compiler.hooks.compilation.tap(
       'CommonErrorsPlugin (module)',
       (compilation) => {

@@ -5,4 +5,4 @@
 
 # webpack-browser-extension-resources [![workflow][action-image]][action-url] [![npm][npm-image]][npm-url]
 
-> webpack plugin to handle manifest resources assets from browser extensions
+> rspack plugin to handle manifest resources assets from browser extensions

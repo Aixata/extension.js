@@ -17,12 +17,12 @@ describe('IconsPlugin', () => {
     ['sidebar_action']
   ])('dealing with %s', (directory) => {
     const fixturesPath = getFixturesPath(directory)
-    const webpackConfigPath = path.join(fixturesPath, 'webpack.config.js')
+    const rspackConfigPath = path.join(fixturesPath, 'rspack.config.js')
     const outputPath = path.resolve(fixturesPath, 'dist')
 
     beforeAll((done) => {
       exec(
-        `npx webpack --config ${webpackConfigPath}`,
+        `npx rspack --config ${rspackConfigPath}`,
         {cwd: fixturesPath},
         (error, stdout, stderr) => {
           if (error) {

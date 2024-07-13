@@ -3,7 +3,7 @@
 `Extension.js` is a monorepo consisting of multiple programs and packages.
 
 - Programs: Each CLI command (including the CLI itself) is a program.
-- Packages: Helper libraries and built-in webpack plugins.
+- Packages: Helper libraries and built-in rspack plugins.
 
 ## Monorepo Packages
 
@@ -30,12 +30,12 @@
 
 Extension.js includes several command line programs, each serving a specific purpose in the extension development lifecycle:
 
-| Program   | Description                                                                                  |
-| --------- | -------------------------------------------------------------------------------------------- |
-| `cli`     | The Command Line Interface that executes the Extension.js programs.                          |
-| `create`  | Create extensions from built-in templates.                                                   |
-| `develop` | Wrapper around the webpack config that consists of the `dev`, `start`, and `build` commands. |
-| `publish` | This is empty for now.                                                                       |
+| Program   | Description                                                                                 |
+| --------- | ------------------------------------------------------------------------------------------- |
+| `cli`     | The Command Line Interface that executes the Extension.js programs.                         |
+| `create`  | Create extensions from built-in templates.                                                  |
+| `develop` | Wrapper around the rspack config that consists of the `dev`, `start`, and `build` commands. |
+| `publish` | This is empty for now.                                                                      |
 
 ## Installation
 

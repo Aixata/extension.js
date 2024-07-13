@@ -1,5 +1,5 @@
 import path from 'path'
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 
 import {type IncludeList, type HtmlPluginInterface} from './types'
 import EmitHtmlFile from './steps/EmitHtmlFile'
@@ -16,7 +16,7 @@ import getAssetsFromHtml from './lib/getAssetsFromHtml'
  * HtmlPlugin is responsible for handling the HTML file
  * defined in the manifest.json. Static assets and CSS files
  * within the HTML file are added to the compilation. JS files
- * are added as webpack entrypoints. It also supports ecxtra
+ * are added as rspack entrypoints. It also supports ecxtra
  * html files defined via this.include option. These extra
  * html files are added to the compilation and are also HMR
  * enabled. They are useful for adding extra pages to the
@@ -63,7 +63,7 @@ export default class HtmlPlugin {
     }, {})
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     const includeList = this.parseIncludes(this.include || [])
 
     // 1 - Gets the original HTML file and add the HTML file to the compilation.

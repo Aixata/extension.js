@@ -1,5 +1,5 @@
 import path from 'path'
-import webpack from 'webpack'
+import rspack, {type Compiler} from '@rspack/core'
 import {type IncludeList, type ResolvePluginInterface} from './types'
 
 /**
@@ -44,8 +44,8 @@ export default class ResolvePlugin {
     this.includeList = options.includeList || {}
   }
 
-  public apply(compiler: webpack.Compiler): void {
-    new webpack.ProvidePlugin({
+  public apply(compiler: Compiler): void {
+    new rspack.ProvidePlugin({
       r: [path.resolve(__dirname, './resolver-module.mjs'), 'default']
     }).apply(compiler)
 

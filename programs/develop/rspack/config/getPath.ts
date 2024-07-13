@@ -22,7 +22,7 @@ function getOutputPath(projectPath: string, browser: string | undefined) {
   return path.join(projectPath, distFolderName)
 }
 
-function getWebpackPublicPath(_projectPath?: string) {
+function getRspackPublicPath(_projectPath?: string) {
   return '/'
 }
 
@@ -58,7 +58,7 @@ function getAliasToResolve(projectPath: string) {
 export {
   getManifestPath,
   getOutputPath,
-  getWebpackPublicPath,
+  getRspackPublicPath,
   getModulesToResolve,
   getScriptResolveExtensions,
   getExtensionsToResolve,

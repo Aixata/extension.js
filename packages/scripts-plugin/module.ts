@@ -1,5 +1,5 @@
 import path from 'path'
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 
 import {type IncludeList, type ScriptsPluginInterface} from './types'
 import AddScripts from './steps/AddScripts'
@@ -49,7 +49,7 @@ export default class ScriptsPlugin {
     }, {})
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     // 1 - Adds the scripts entries from the manifest file
     // and from the extra scripts defined in this.include
     // to the compilation.

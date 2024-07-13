@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 
 // Manifest fields
 import manifestFields from 'browser-extension-manifest-fields'
@@ -17,7 +17,7 @@ export default class AddScriptsAndStyles {
     this.exclude = options.exclude
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     const scriptFields = {
       ...manifestFields(this.manifestPath).scripts,
       ...this.includeList
@@ -42,7 +42,7 @@ export default class AddScriptsAndStyles {
       if (cssImports.length || scriptImports.length) {
         compiler.options.entry = {
           ...compiler.options.entry,
-          // https://webpack.js.org/configuration/entry-context/#entry-descriptor
+          // https://rspack.js.org/configuration/entry-context/#entry-descriptor
           [feature]: {import: entryImports}
         }
       }

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import type webpack from 'webpack'
-import {sources, Compilation} from 'webpack'
+import {type Compiler} from '@rspack/core'
+import {sources, Compilation} from '@rspack/core'
 
 import {type IncludeList, type StepPluginInterface} from '../types'
 
@@ -24,7 +24,7 @@ export default class AddAssetsToCompilation {
     this.exclude = options.exclude
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     compiler.hooks.thisCompilation.tap(
       'HtmlPlugin (AddAssetsToCompilation)',
       (compilation) => {

@@ -1,12 +1,13 @@
-import webpack from 'webpack'
+import rspack from '@rspack/core'
 import {bold, yellow} from '@colors/colors'
 import {type ManifestBase} from '../manifest-types'
 import {getManifestDocumentationURL} from '../helpers/getDocUrl'
+import {StatsError} from 'webpack'
 
 export default function handleWrongWebResourceFormatError(
   manifest: ManifestBase,
   browser: string
-): webpack.WebpackError | null {
+) {
   const webResources = manifest.web_accessible_resources as string[]
 
   if (webResources) {
@@ -23,7 +24,7 @@ export default function handleWrongWebResourceFormatError(
     const namespace = yellow('web_accessible_resources')
 
     if (manifest.manifest_version === 2 && !mv2Format) {
-      return new webpack.WebpackError(
+      return new rspack.WebpackError(
         bold(
           `[manifest.json]: ${yellow(
             'web_accessible_resources'
@@ -36,7 +37,7 @@ ${getManifestDocumentationURL(browser)}`
     }
 
     if (manifest.manifest_version === 3 && !mv3Format) {
-      return new webpack.WebpackError(
+      return new rspack.WebpackError(
         bold(
           `[manifest.json]: ${yellow(
             'web_accessible_resources'

@@ -1,4 +1,4 @@
-import {type LoaderContext} from 'webpack'
+import {type LoaderContext} from '@rspack/core'
 import {type ManifestBase} from './manifest-types'
 
 export interface Callee {

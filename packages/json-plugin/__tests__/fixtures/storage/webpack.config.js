@@ -1,8 +1,8 @@
 const path = require('path')
-const webpack = require('webpack')
+const rspack = require('@rspack/core')
 const Jsonlugin = require('../../../dist/module').default
 
-/** @type {webpack.Configuration} */
+/** @type {rspack.Configuration} */
 const config = {
   devtool: 'cheap-source-map',
   mode: 'development',

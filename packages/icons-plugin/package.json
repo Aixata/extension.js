@@ -9,7 +9,7 @@
   },
   "name": "webpack-browser-extension-icons",
   "version": "1.0.4",
-  "description": "webpack plugin to handle manifest icon assets from browser extensions",
+  "description": "rspack plugin to handle manifest icon assets from browser extensions",
   "main": "./dist/module.js",
   "types": "./dist/module.d.ts",
   "files": [
@@ -28,7 +28,7 @@
     "test": "jest"
   },
   "keywords": [
-    "webpack",
+    "@rspack/core",
     "plugin",
     "browser",
     "web",
@@ -42,7 +42,7 @@
     "manifest.json"
   ],
   "peerDependencies": {
-    "webpack": "~5.92.0"
+    "@rspack/core": "0.7.5"
   },
   "dependencies": {
     "browser-extension-manifest-fields": "*"
@@ -57,7 +57,7 @@
     "ts-jest": "^29.1.2",
     "tsconfig": "*",
     "tsup": "^8.0.1",
-    "webpack": "~5.92.0",
+    "@rspack/core": "0.7.5",
     "webpack-cli": "^5.1.4"
   }
 }

@@ -1,5 +1,5 @@
 import fs from 'fs'
-import webpack from 'webpack'
+import rspack, {type Compiler} from '@rspack/core'
 import manifestFields from 'browser-extension-manifest-fields'
 
 import {type ManifestPluginInterface, type Manifest} from '../types'
@@ -39,7 +39,7 @@ export default class ThrowIfRecompileIsNeeded {
     return values as string[]
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     compiler.hooks.watchRun.tapAsync(
       'ManifestPlugin (ThrowIfRecompileIsNeeded)',
       (compiler, done) => {
@@ -54,7 +54,7 @@ export default class ThrowIfRecompileIsNeeded {
               'ManifestPlugin (ThrowIfRecompileIsNeeded)',
               (compilation) => {
                 const errorMessage = messages.serverRestartRequired()
-                compilation.errors.push(new webpack.WebpackError(errorMessage))
+                compilation.errors.push(new rspack.WebpackError(errorMessage))
               }
             )
           }

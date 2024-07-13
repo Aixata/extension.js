@@ -10,12 +10,12 @@ import {
 describe('JsonPlugin', () => {
   describe('dealing with declarative_net_request', () => {
     const fixturesPath = getFixturesPath('declarative_net_request')
-    const webpackConfigPath = path.join(fixturesPath, 'webpack.config.js')
+    const rspackConfigPath = path.join(fixturesPath, 'rspack.config.js')
     const outputPath = path.resolve(fixturesPath, 'dist')
 
     beforeAll((done) => {
       exec(
-        `npx webpack --config ${webpackConfigPath}`,
+        `npx rspack --config ${rspackConfigPath}`,
         {cwd: fixturesPath},
         (error, stdout, stderr) => {
           if (error) {
@@ -55,12 +55,12 @@ describe('JsonPlugin', () => {
 
   describe('dealing with storage', () => {
     const fixturesPath = getFixturesPath('storage')
-    const webpackConfigPath = path.join(fixturesPath, 'webpack.config.js')
+    const rspackConfigPath = path.join(fixturesPath, 'rspack.config.js')
     const outputPath = path.resolve(fixturesPath, 'dist')
 
     beforeAll((done) => {
       exec(
-        `npx webpack --config ${webpackConfigPath}`,
+        `npx rspack --config ${rspackConfigPath}`,
         {cwd: fixturesPath},
         (error, stdout, stderr) => {
           if (error) {

@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import {type ManifestPluginInterface} from './types'
 
 // Manifest plugins
@@ -29,7 +29,7 @@ export default class ManifestPlugin {
    * The plugin also has a guard against recompiling entrypoints
    * at runtime, throwing an error if any of those files change.
    */
-  public apply(compiler: webpack.Compiler) {
+  public apply(compiler: Compiler) {
     // 1 - Emit the manifest to the assets bundle.
     // It doesn't change the manifest, it just ensures
     // it's emitted to the assets bundle so other plugins

@@ -5,7 +5,7 @@
 
 # webpack-browser-extension-scripts [![workflow][action-image]][action-url] [![npm][npm-image]][npm-url]
 
-> webpack plugin to handle manifest script assets (content_scripts, background.scripts, service_worker, user_scripts) from browser extensions
+> rspack plugin to handle manifest script assets (content_scripts, background.scripts, service_worker, user_scripts) from browser extensions
 
 Properly output script files based on the manifest fields declared in the manifest file.
 

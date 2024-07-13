@@ -1,5 +1,5 @@
 import path from 'path'
-import {type LoaderContext} from 'webpack'
+import {type LoaderContext} from '@rspack/core'
 import {validate} from 'schema-utils'
 import {type Schema} from 'schema-utils/declarations/validate'
 import * as parser from '@babel/parser'

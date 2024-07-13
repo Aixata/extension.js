@@ -1,30 +1,28 @@
 import fs from 'fs'
-import webpack, {type Compilation} from 'webpack'
+import rspack, {type Compilation} from '@rspack/core'
 import manifestFields from 'browser-extension-manifest-fields'
 
 import messages from './messages'
 import {type Manifest} from '../types'
 
-function manifestNotFoundError(compilation: webpack.Compilation) {
+function manifestNotFoundError(compilation: Compilation) {
   compilation.errors.push(
-    new webpack.WebpackError(
+    new rspack.WebpackError(
       `[manifest.json]: ${messages.manifestNotFoundError}`
     )
   )
 }
 
-function manifestInvalidError(compilation: webpack.Compilation, error: any) {
+function manifestInvalidError(compilation: Compilation, error: any) {
   compilation.errors.push(
-    new webpack.WebpackError(
-      `[manifest.json]: ${messages.manifestInvalidError}`
-    )
+    new rspack.WebpackError(`[manifest.json]: ${messages.manifestInvalidError}`)
   )
 }
 
 function handleHtmlErrors(
   compilation: Compilation,
   manifestPath: string,
-  WebpackError: typeof webpack.WebpackError
+  WebpackError: typeof rspack.WebpackError
 ) {
   const manifest: Manifest = require(manifestPath)
   const htmlFields = manifestFields(manifestPath, manifest).html
@@ -43,7 +41,7 @@ function handleHtmlErrors(
 function handleIconsErrors(
   compilation: Compilation,
   manifestPath: string,
-  WebpackError: typeof webpack.WebpackError
+  WebpackError: typeof rspack.WebpackError
 ) {
   const manifest: Manifest = require(manifestPath)
   const iconsFields = manifestFields(manifestPath, manifest).icons
@@ -97,7 +95,7 @@ function handleJsonErrors(
   compilation: Compilation,
   manifestPath: string,
 
-  WebpackError: typeof webpack.WebpackError
+  WebpackError: typeof rspack.WebpackError
 ) {
   const manifest: Manifest = require(manifestPath)
   const jsonFields = manifestFields(manifestPath, manifest).json
@@ -121,7 +119,7 @@ function handleScriptsErrors(
   compilation: Compilation,
   manifestPath: string,
 
-  WebpackError: typeof webpack.WebpackError
+  WebpackError: typeof rspack.WebpackError
 ) {
   const manifest: Manifest = require(manifestPath)
   const scriptsFields = manifestFields(manifestPath, manifest).scripts

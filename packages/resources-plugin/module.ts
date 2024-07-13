@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import {type WebResourcesPluginInterface} from './types'
 // import AutoParseWebResourcesFolder from './src/steps/AutoParseWebResourcesFolder'
 import ApplyCommonFileLoaders from './src/steps/ApplyCommonFileLoaders'
@@ -36,7 +36,7 @@ export default class WebResourcesPlugin {
    * folder. For MV3, the assets are outputted to web_accessible_resources/resource-[index].
    * These entries are also added to the manifest.json file.
    */
-  apply(compiler: webpack.Compiler) {
+  apply(compiler: Compiler) {
     // 0 - Iterate over the list of web_accessible_resources
     // defined in the manifest.json file and output them
     // to the web_accessible_resources folder.

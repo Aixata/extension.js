@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "strict": true,
     "target": "esnext",
-    "isolatedModules": false
+    "isolatedModules": true
   },
   "include": ["./"],
   "exclude": ["node_modules", "dist"]

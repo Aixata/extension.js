@@ -1,11 +1,9 @@
-import webpack from 'webpack'
+import rspack from '@rspack/core'
 import parseCSP from 'content-security-policy-parser'
 import {bold, cyan, yellow, blue} from '@colors/colors'
 import {type ManifestBase} from '../manifest-types'
 
-export default function handleInsecureCSPValueError(
-  manifest: ManifestBase
-): webpack.WebpackError | null {
+export default function handleInsecureCSPValueError(manifest: ManifestBase) {
   const manifestCSP: string | undefined = manifest.content_security_policy
   const extensionPagesCSP: string | undefined =
     manifest.content_security_policy?.extension_pages
@@ -34,7 +32,7 @@ export default function handleInsecureCSPValueError(
       : undefined
 
     if (extensionPagesCSPError) {
-      return new webpack.WebpackError(extensionPagesCSPError)
+      return new rspack.WebpackError(extensionPagesCSPError)
     }
   }
 

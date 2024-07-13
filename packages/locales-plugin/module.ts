@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
-import type webpack from 'webpack'
-import {sources, Compilation} from 'webpack'
+import {type Compiler} from '@rspack/core'
+import {sources, Compilation} from '@rspack/core'
 import {type LocalesPluginInterface, type Manifest} from './types'
 import manifestFields from 'browser-extension-manifest-fields'
 import errors from './helpers/errors'
@@ -19,7 +19,7 @@ export default class LocalesPlugin {
     this.manifestPath = options.manifestPath
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     // Add the locales to the compilation. This is important so other
     // plugins can get it via the compilation.assets object,
     // allowing them to modify it.

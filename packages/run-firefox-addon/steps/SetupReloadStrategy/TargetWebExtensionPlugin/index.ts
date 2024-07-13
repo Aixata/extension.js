@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type webpack from 'webpack'
+import {Compiler} from '@rspack/core'
 import WebExtension from 'webpack-target-webextension'
 import {red, bold} from '@colors/colors/safe'
 import {type RunFirefoxExtensionInterface, type Manifest} from '../../../types'
@@ -13,7 +13,7 @@ class TargetWebExtensionPlugin {
     this.manifestPath = options.manifestPath
   }
 
-  private handleBackground(compiler: webpack.Compiler, manifest: Manifest) {
+  private handleBackground(compiler: Compiler, manifest: Manifest) {
     const minimumBgScript = path.resolve(
       __dirname,
       'minimum-background-file.mjs'
@@ -55,7 +55,7 @@ class TargetWebExtensionPlugin {
   }
 
   private addDefaultEntry(
-    compiler: webpack.Compiler,
+    compiler: Compiler,
     name: string,
     defaultScript: string
   ) {
@@ -79,7 +79,7 @@ class TargetWebExtensionPlugin {
     return {pageEntry: 'background'}
   }
 
-  public apply(compiler: webpack.Compiler) {
+  public apply(compiler: Compiler) {
     if (!this.manifestPath || !fs.lstatSync(this.manifestPath).isFile()) {
       return
     }

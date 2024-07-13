@@ -31,7 +31,7 @@
     "dist"
   ],
   "keywords": [
-    "webpack",
+    "@rspack/core",
     "plugin",
     "firefox",
     "run",
@@ -44,7 +44,7 @@
     "webextension"
   ],
   "peerDependencies": {
-    "webpack": "^5.00.0"
+    "@rspack/core": "^5.00.0"
   },
   "dependencies": {
     "@colors/colors": "^1.6.0",
@@ -57,7 +57,7 @@
     "progress": "^2.0.3",
     "schema-utils": "^4.2.0",
     "webextension-polyfill-ts": "^0.26.0",
-    "webpack-target-webextension": "^1.1.2",
+    "webpack-target-webextension": "*",
     "ws": "8.17.1"
   },
   "devDependencies": {
@@ -68,7 +68,7 @@
     "html-webpack-plugin": "^5.6.0",
     "tsconfig": "*",
     "tsup": "^8.1.0",
-    "webpack": "~5.92.0",
+    "@rspack/core": "0.7.5",
     "webpack-cli": "^5.1.4"
   }
 }

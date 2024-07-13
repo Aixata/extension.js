@@ -7,9 +7,9 @@
 
 import {bold, red} from '@colors/colors/safe'
 import getProjectPath from './steps/getProjectPath'
-import webpack from 'webpack'
-import compilerConfig from './webpack/webpack-config'
-import {getOutputPath} from './webpack/config/getPath'
+import {rspack} from '@rspack/core'
+import compilerConfig from './rspack/rspack-config'
+import {getOutputPath} from './rspack/config/getPath'
 import generateZip from './steps/generateZip'
 import * as messages from './messages/buildMessage'
 
@@ -29,32 +29,32 @@ export default async function extensionBuild(
 
   try {
     const browser = buildOptions.browser || 'chrome'
-    const webpackConfig = compilerConfig(projectPath, {
+    const rspackConfig = compilerConfig(projectPath, {
       mode: 'production',
       browser
     })
 
     // BrowserPlugin can run in production but never in the build command.
-    const allPluginsButBrowserRunners = webpackConfig.plugins?.filter(
+    const allPluginsButBrowserRunners = rspackConfig.plugins?.filter(
       (plugin) => plugin?.constructor.name !== 'BrowserPlugin'
     )
 
-    const webpackConfigNoBrowser = {
-      ...webpackConfig,
+    const rspackConfigNoBrowser = {
+      ...rspackConfig,
       plugins: allPluginsButBrowserRunners
     }
 
-    webpack(webpackConfigNoBrowser).run((err, stats) => {
+    rspack(rspackConfigNoBrowser).run((err, stats) => {
       if (err) {
         console.error(err.stack || err)
         process.exit(1)
       }
 
       const outputPath =
-        webpackConfigNoBrowser.output?.path ||
+        rspackConfigNoBrowser.output?.path ||
         getOutputPath(projectPath, browser)
 
-      messages.buildWebpack(projectPath, stats, outputPath, browser)
+      messages.buildRspack(projectPath, stats, outputPath, browser)
 
       if (buildOptions.zip || buildOptions.zipSource) {
         generateZip(projectPath, {...buildOptions, browser})

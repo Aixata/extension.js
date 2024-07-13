@@ -1,6 +1,6 @@
 import fs from 'fs'
-import type webpack from 'webpack'
-import {sources, Compilation} from 'webpack'
+import {type Compiler} from '@rspack/core'
+import {sources, Compilation} from '@rspack/core'
 import manifestFields from 'browser-extension-manifest-fields'
 import {type JsonPluginInterface, type Manifest} from './types'
 import utils from './helpers/utils'
@@ -24,7 +24,7 @@ export default class JsonPlugin {
     this.exclude = options.exclude
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     // Add the JSON to the compilation. This is important so other
     // plugins can get it via the compilation.assets object,
     // allowing them to modify it.

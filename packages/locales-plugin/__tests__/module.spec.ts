@@ -5,12 +5,12 @@ import {getFixturesPath, assertFileIsEmitted} from './__utils__'
 
 describe('LocalesPlugin', () => {
   const fixturesPath = getFixturesPath('locales-default')
-  const webpackConfigPath = path.join(fixturesPath, 'webpack.config.js')
+  const webpackConfigPath = path.join(fixturesPath, 'rspack.config.js')
   const outputPath = path.resolve(fixturesPath, 'dist')
 
   beforeAll((done) => {
     exec(
-      `npx webpack --config ${webpackConfigPath}`,
+      `npx rspack --config ${webpackConfigPath}`,
       {cwd: fixturesPath},
       (error, stdout, stderr) => {
         if (error) {

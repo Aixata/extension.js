@@ -7,7 +7,7 @@
 
 import path from 'path'
 import os from 'os'
-import type webpack from 'webpack'
+import {Compiler} from '@rspack/core'
 import RunChromeExtension from 'webpack-run-chrome-extension'
 import RunEdgeExtension from 'webpack-run-edge-extension'
 import RunFirefoxAddon from 'webpack-run-firefox-addon'
@@ -74,7 +74,7 @@ export default function browserPlugins(
 
   return {
     constructor: {name: 'BrowserPlugin'},
-    apply: (compiler: webpack.Compiler) => {
+    apply: (compiler: Compiler) => {
       switch (devOptions.browser) {
         case 'chrome':
           new RunChromeExtension(chromeConfig).apply(compiler)

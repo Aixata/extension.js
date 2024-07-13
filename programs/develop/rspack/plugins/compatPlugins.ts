@@ -5,45 +5,36 @@
 // ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
-import {type ClientConfiguration} from 'webpack-dev-server'
+import path from 'path'
+import {Compiler} from '@rspack/core'
+import PolyfillPlugin from 'webpack-browser-extension-polyfill'
+import ManifestCompatPlugin from 'webpack-browser-extension-manifest-compat'
+import {type DevOptions} from '../../extensionDev'
 
-const authorMode = process.env.EXTENSION_ENV === 'development'
-
-export function getWebpackStats() {
+export default function compatPlugins(
+  projectPath: string,
+  {polyfill, browser}: DevOptions
+) {
   return {
-    children: true,
-    errorDetails: true,
-    entrypoints: false,
-    colors: true,
-    assets: false,
-    chunks: false,
-    modules: false
-  }
-}
+    constructor: {name: 'CompatPlugin'},
+    apply: (compiler: Compiler) => {
+      const manifestPath = path.resolve(projectPath, 'manifest.json')
 
-export function getDevServerClientOptions(): ClientConfiguration {
-  if (!authorMode) {
-    return {
-      logging: 'none',
-      progress: false,
-      overlay: {
-        errors: true,
-        warnings: false
+      // Allow browser polyfill as needed
+      if (polyfill) {
+        if (browser !== 'firefox') {
+          new PolyfillPlugin({
+            manifestPath,
+            browser
+          }).apply(compiler)
+        }
       }
-    }
-  }
 
-  return {
-    // Allows to set log level in the browser, e.g. before reloading,
-    // before an error or when Hot Module Replacement is enabled.
-    logging: 'error',
-    // Prints compilation progress in percentage in the browser.
-    progress: false,
-    // Shows a full-screen overlay in the browser
-    // when there are compiler errors or warnings.
-    overlay: {
-      errors: true,
-      warnings: false
+      // Handle manifest compatibilities across browser vendors.
+      new ManifestCompatPlugin({
+        manifestPath,
+        browser
+      }).apply(compiler)
     }
   }
 }

@@ -27,7 +27,7 @@ function getLocales(projectPath: string, manifest: Record<string, any>) {
   }
 }
 
-export function startWebpack(projectDir: string, options: StartOptions) {
+export function startRspack(projectDir: string, options: StartOptions) {
   const outputPath = path.join(projectDir, 'dist', options.browser || 'chrome')
   const manifestPath = path.join(outputPath, 'manifest.json')
   const manifest: Record<string, any> = require(manifestPath)

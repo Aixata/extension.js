@@ -5,33 +5,43 @@
 // ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
-import fs from 'fs'
-import {type DevOptions} from '../../extensionDev'
+const authorMode = process.env.EXTENSION_ENV === 'development'
 
-// https://webpack.js.org/configuration/devtool/
-export default function getDevToolOption(
-  projectPath: string,
-  mode: DevOptions['mode']
-) {
-  const manifestPath = `${projectPath}/manifest.json`
-  const manifestExists = fs.lstatSync(manifestPath)
+export function getRspackStats() {
+  return {
+    children: true,
+    errorDetails: true,
+    entrypoints: false,
+    colors: true,
+    assets: false,
+    chunks: false,
+    modules: false
+  }
+}
 
-  if (!manifestExists) {
-    console.log(
-      '🚨 - Error while developing the extension: manifest.json not found'
-    )
-    process.exit(1)
+export function getDevServerClientOptions() {
+  if (!authorMode) {
+    return {
+      logging: 'none',
+      progress: false,
+      overlay: {
+        errors: true,
+        warnings: false
+      }
+    }
   }
 
-  const manifest = require(manifestPath)
-
-  if (mode === 'production') return undefined
-
-  // MV3 doesn't allow eval.
-  // Ref https://github.com/awesome-webextension/webpack-target-webextension/blob/master/examples/hmr-mv3/webpack.config.js#L7
-  if (manifest.manifest_version === 3) {
-    return 'cheap-source-map'
+  return {
+    // Allows to set log level in the browser, e.g. before reloading,
+    // before an error or when Hot Module Replacement is enabled.
+    logging: 'error',
+    // Prints compilation progress in percentage in the browser.
+    progress: false,
+    // Shows a full-screen overlay in the browser
+    // when there are compiler errors or warnings.
+    overlay: {
+      errors: true,
+      warnings: false
+    }
   }
-
-  return 'eval-cheap-source-map'
 }

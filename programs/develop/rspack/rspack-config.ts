@@ -5,14 +5,16 @@
 // ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
-import type webpack from 'webpack'
+import type rspack from '@rspack/core'
+import {defineConfig} from '@rspack/cli'
+
 import {type DevOptions} from '../extensionDev'
 
 // Option files for plugins
 import {
   getOutputPath,
   getModulesToResolve,
-  getWebpackPublicPath,
+  getRspackPublicPath,
   getExtensionsToResolve,
   getAliasToResolve
 } from './config/getPath'
@@ -33,19 +35,19 @@ import boringPlugins from './plugins/boringPlugins'
 
 // Checks
 import getDevToolOption from './config/getDevtoolOption'
-import {getWebpackStats} from './config/logging'
+import {getRspackStats} from './config/logging'
 
-export default function webpackConfig(
+export default function (
   projectPath: string,
   {...devOptions}: DevOptions
-): webpack.Configuration {
-  return {
+): rspack.Configuration {
+  return defineConfig({
     mode: devOptions.mode,
     entry: {},
     target: 'web',
     context: projectPath,
     devtool: getDevToolOption(projectPath, devOptions.mode),
-    stats: getWebpackStats(),
+    stats: getRspackStats(),
     infrastructureLogging: {
       level: 'none'
     },
@@ -56,18 +58,19 @@ export default function webpackConfig(
       maxEntrypointSize: 999000
     },
     output: {
-      clean: {
-        keep(asset) {
-          // Avoids deleting the hot-update files for the content scripts.
-          // This is a workaround for the issue described
-          // in https://github.com/cezaraugusto/extension.js/issues/35.
-          // These HMR assets are eventually deleted by CleanHotUpdatesPlugin when webpack starts.
-          return !asset.startsWith('hot/background')
-        }
-      },
+      clean: true,
+      // {
+      //   keep(asset) {
+      //     // Avoids deleting the hot-update files for the content scripts.
+      //     // This is a workaround for the issue described
+      //     // in https://github.com/cezaraugusto/extension.js/issues/35.
+      //     // These HMR assets are eventually deleted by CleanHotUpdatesPlugin when webpack starts.
+      //     return !asset.startsWith('hot/background')
+      //   }
+      // },
       path: getOutputPath(projectPath, devOptions.browser),
-      // See https://webpack.js.org/configuration/output/#outputpublicpath
-      publicPath: getWebpackPublicPath(projectPath),
+      // See https://rspack.js.org/configuration/output/#outputpublicpath
+      publicPath: getRspackPublicPath(projectPath),
       hotUpdateChunkFilename: 'hot/[id].[fullhash].hot-update.js',
       hotUpdateMainFilename: 'hot/[runtime].[fullhash].hot-update.json',
       environment: {
@@ -106,7 +109,12 @@ export default function webpackConfig(
         ...jsLoaders(projectPath, devOptions),
         ...styleLoaders(projectPath, devOptions),
         ...assetLoaders
-      ]
+      ],
+      parser: {
+        'css/auto': {
+          namedExports: false
+        }
+      }
     },
     plugins: [
       compilationPlugins(projectPath, devOptions),
@@ -120,7 +128,7 @@ export default function webpackConfig(
     optimization: {
       minimize: devOptions.mode === 'production'
       // WARN: This can have side-effects.
-      // See https://webpack.js.org/guides/code-splitting/#entry-dependencies
+      // See https://rspack.js.org/guides/code-splitting/#entry-dependencies
       // runtimeChunk: true,
     },
     experiments: {
@@ -137,5 +145,5 @@ export default function webpackConfig(
       // we can enable this feature as long as we have tests to cover it.
       // outputModule: false
     }
-  }
+  })
 }

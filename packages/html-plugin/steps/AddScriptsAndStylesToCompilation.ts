@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 
 import {type IncludeList, type StepPluginInterface} from '../types'
 
@@ -21,7 +21,7 @@ export default class AddScriptsAndStylesToCompilation {
     this.exclude = options.exclude
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     const htmlEntries = {
       ...manifestFields(this.manifestPath).html,
       ...this.includeList
@@ -51,7 +51,7 @@ export default class AddScriptsAndStylesToCompilation {
           if (!shouldExclude(resource?.html, this.exclude)) {
             compiler.options.entry = {
               ...compiler.options.entry,
-              // https://webpack.js.org/configuration/entry-context/#entry-descriptor
+              // https://rspack.js.org/configuration/entry-context/#entry-descriptor
               [feature]: {
                 import: fileAssets
               }

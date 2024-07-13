@@ -1,6 +1,6 @@
 import path from 'path'
 import WebSocket from 'ws'
-import {type Compiler} from 'webpack'
+import {type Compiler} from '@rspack/core'
 import type browser from 'webextension-polyfill-ts'
 import httpsServer from './httpsServer'
 import messages from '../../../helpers/messages'

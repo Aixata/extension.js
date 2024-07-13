@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import manifestFields from 'browser-extension-manifest-fields'
 
 import {
@@ -58,7 +58,7 @@ export default class ThrowIfRecompileIsNeeded {
     })
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     const manifest: Manifest = require(this.manifestPath)
     const htmlFields = manifestFields(this.manifestPath, manifest).html
     const allEntries = {

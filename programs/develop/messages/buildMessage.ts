@@ -5,7 +5,7 @@
 // ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
-import type webpack from 'webpack'
+import type rspack from '@rspack/core'
 import path from 'path'
 import fs from 'fs'
 import {yellow, green, bold, red, underline} from '@colors/colors/safe'
@@ -48,7 +48,7 @@ export function getAssetInfo(
   })
 }
 
-export function getAssetsTree(assets: webpack.StatsAsset[] | undefined) {
+export function getAssetsTree(assets: rspack.StatsAsset[] | undefined) {
   const assetTree: Record<string, {size: number}> = {}
 
   assets?.forEach((asset) => {
@@ -73,7 +73,7 @@ export function getAssetsTree(assets: webpack.StatsAsset[] | undefined) {
   printTree(assetTree)
 }
 
-export function buildWebpack(
+export function buildRspack(
   projectDir: string,
   stats: any,
   outputPath: string,

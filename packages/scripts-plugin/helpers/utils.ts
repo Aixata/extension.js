@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import {type Compiler} from 'webpack'
+import {type Compiler} from '@rspack/core'
 
 export function isUsingReact(projectDir: string) {
   const packageJsonPath = path.join(projectDir, 'package.json')

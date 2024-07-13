@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import {urlToRequest} from 'loader-utils'
 import {validate} from 'schema-utils'
-import {type LoaderContext} from 'webpack'
+import {type LoaderContext} from '@rspack/core'
 import {type Schema} from 'schema-utils/declarations/validate'
 
 // Manifest fields

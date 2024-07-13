@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import {type IconsPluginInterface} from './types'
 import EmitFile from './steps/EmitFile'
 import AddToFileDependencies from './steps/AddToFileDependencies'
@@ -24,7 +24,7 @@ export default class ScriptsPlugin {
    * page_action.default_icon
    * sidebar_action.default_icon
    */
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     new EmitFile({
       manifestPath: this.manifestPath,
       exclude: this.exclude || []

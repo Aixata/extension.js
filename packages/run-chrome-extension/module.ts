@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import {type RunChromeExtensionInterface} from './types'
 import CreateWebSocketServer from './steps/CreateWebSocketServer'
 import SetupReloadStrategy from './steps/SetupReloadStrategy'
@@ -23,7 +23,7 @@ export default class RunChromeExtension {
   /**
    * RunChromeExtension works by creating a WebSockets server
    * that listens to changes triggered by the user extension
-   * via webpack. When a change is detected, the server sends
+   * via rspack. When a change is detected, the server sends
    * a message to an extension called reload-extension, which
    * is injected into the browser. This extension is responsible
    * for sending messages to the user extension. We do that by
@@ -47,7 +47,7 @@ export default class RunChromeExtension {
    * - Service worker - Full extension reload (chrome.runtime.reload)
    * - manifest.json - Full extension reload (chrome.runtime.reload)
    */
-  apply(compiler: webpack.Compiler) {
+  apply(compiler: Compiler) {
     // 1 - Creates a WebSockets server to communicate with the browser.
     // This server is responsible for sending reload requests to the client,
     // which is a browser extension that is injected into the browser called

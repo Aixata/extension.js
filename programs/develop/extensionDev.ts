@@ -9,9 +9,9 @@ import fs from 'fs'
 import path from 'path'
 import {bold, red, yellow, underline} from '@colors/colors/safe'
 import getProjectPath from './steps/getProjectPath'
-import {isUsingTypeScript} from './webpack/options/typescript'
+import {isUsingTypeScript} from './rspack/options/typescript'
 import generateExtensionTypes from './steps/generateExtensionTypes'
-import startDevServer from './webpack/startDevServer'
+import startRspackDevServer from './rspack/startDevServer'
 
 export interface DevOptions {
   mode?: 'development' | 'production' | 'none' | undefined
@@ -33,7 +33,7 @@ export default async function extensionDev(
     !fs.existsSync(path.join(projectPath, 'manifest.json'))
   ) {
     console.log(
-      `🧩 ${bold(`Extension.js`)} ${red('✖︎✖︎✖︎')} Manifest file ${red(
+      `🧩 ${bold('Extension.js')} ${red('✖︎✖︎✖︎')} Manifest file ${red(
         bold('not found')
       )}. Path ${underline(projectPath)} must include a ${yellow(
         'manifest.json'
@@ -47,10 +47,10 @@ export default async function extensionDev(
       await generateExtensionTypes(projectPath)
     }
 
-    await startDevServer(projectPath, {...devOptions})
+    await startRspackDevServer(projectPath, {...devOptions})
   } catch (error: any) {
     console.log(
-      `🧩 ${bold(`Extension.js`)} ${red('✖︎✖︎✖︎')} ` +
+      `🧩 ${bold('Extension.js')} ${red('✖︎✖︎✖︎')} ` +
         `Error while developing the extension:\n\n${red(
           bold((error as string) || '')
         )}`

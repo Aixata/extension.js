@@ -1,10 +1,10 @@
-import webpack from 'webpack'
+import rspack from '@rspack/core'
 import {bold, red, underline, blue} from '@colors/colors/safe'
 
 export function handleMultipleAssetsError(
   manifestPath: string,
-  error: webpack.WebpackError
-): webpack.WebpackError | null {
+  error: rspack.StatsError
+): rspack.StatsError | null {
   const manifest = require(manifestPath)
   const actualMsg =
     'Conflict: Multiple assets emit different content to the same filename '
@@ -14,7 +14,7 @@ export function handleMultipleAssetsError(
     const errorMsg = `[${manifest.name}'s content_scripts] One of your \`${extFilename}\` file imports is also defined as a content_script in manifest.json. Remove the duplicate entry and try again.`
 
     if (filename.startsWith('content_scripts')) {
-      return new webpack.WebpackError(errorMsg)
+      return new rspack.WebpackError(errorMsg)
     }
   }
   return null
@@ -22,8 +22,8 @@ export function handleMultipleAssetsError(
 
 export function handleCantResolveError(
   manifestPath: string,
-  error: webpack.WebpackError
-): webpack.WebpackError | null {
+  error: rspack.StatsError
+): rspack.StatsError | null {
   const manifest = require(manifestPath)
   const cantResolveMsg = 'Module not found: Error:'
 
@@ -40,7 +40,7 @@ export function handleCantResolveError(
       )} folder. ` +
       `Read more about ${'special folders'} ${underline(blue(link))}.`
 
-    return new webpack.WebpackError(bold(customMessage))
+    return new rspack.WebpackError(bold(customMessage))
   }
 
   return null
@@ -48,8 +48,8 @@ export function handleCantResolveError(
 
 export function handleTopLevelAwaitError(
   manifestPath: string,
-  error: webpack.WebpackError
-): webpack.WebpackError | null {
+  error: rspack.StatsError
+): rspack.StatsError | null {
   const manifest = require(manifestPath)
   const topLevelAwaitMsg =
     'Top-level-await is only supported in EcmaScript Modules'
@@ -62,7 +62,7 @@ export function handleTopLevelAwaitError(
       bold(topLevelAwaitMsg + '.\n' + additionalInfo)
     )}`
 
-    return new webpack.WebpackError(customMessage)
+    return new rspack.WebpackError(customMessage)
   }
 
   return null

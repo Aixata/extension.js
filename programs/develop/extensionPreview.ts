@@ -5,10 +5,10 @@
 // ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
-import webpack from 'webpack'
+import {rspack} from '@rspack/core'
 import {bold, red} from '@colors/colors/safe'
 import getProjectPath from './steps/getProjectPath'
-import compilerConfig from './webpack/webpack-config'
+import compilerConfig from './rspack/rspack-config'
 import * as messages from './messages/startMessage'
 
 export interface PreviewOptions {
@@ -30,30 +30,30 @@ export default async function extensionStart(
 
   try {
     const browser = previewOptions.browser || 'chrome'
-    const webpackConfig = compilerConfig(projectPath, {
+    const rspackConfig = compilerConfig(projectPath, {
       mode: 'production',
       browser
     })
 
     // BrowserPlugin can run in production but never in the build command.
-    const onlyBrowserRunners = webpackConfig.plugins?.filter(
+    const onlyBrowserRunners = rspackConfig.plugins?.filter(
       (plugin) => plugin?.constructor.name === 'BrowserPlugin'
     )
 
-    const webpackConfigOnlyBrowser = {
-      ...webpackConfig,
+    const rspackConfigOnlyBrowser = {
+      ...rspackConfig,
       plugins: onlyBrowserRunners
     }
 
     messages.building(previewOptions)
 
-    webpack(webpackConfigOnlyBrowser).run((err, stats) => {
+    rspack(rspackConfigOnlyBrowser).run((err, stats) => {
       if (err) {
         console.error(err.stack || err)
         process.exit(1)
       }
 
-      messages.startWebpack(projectPath, previewOptions)
+      messages.startRspack(projectPath, previewOptions)
 
       if (!stats?.hasErrors()) {
         setTimeout(() => {

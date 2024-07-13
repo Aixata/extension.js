@@ -6,35 +6,44 @@
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
 import path from 'path'
-import type webpack from 'webpack'
-import PolyfillPlugin from 'webpack-browser-extension-polyfill'
-import ManifestCompatPlugin from 'webpack-browser-extension-manifest-compat'
-import {type DevOptions} from '../../extensionDev'
+import {exec} from 'child_process'
+import type {DevOptions} from '../extensionDev'
 
-export default function compatPlugins(
+export default async function startRspackDevServer(
   projectPath: string,
-  {polyfill, browser}: DevOptions
+  devOptions: DevOptions
 ) {
-  return {
-    constructor: {name: 'CompatPlugin'},
-    apply: (compiler: webpack.Compiler) => {
-      const manifestPath = path.resolve(projectPath, 'manifest.json')
+  return new Promise<void>((resolve, reject) => {
+    const rspackArgs = ['dev']
 
-      // Allow browser polyfill as needed
-      if (polyfill) {
-        if (browser !== 'firefox') {
-          new PolyfillPlugin({
-            manifestPath,
-            browser
-          }).apply(compiler)
-        }
-      }
-
-      // Handle manifest compatibilities across browser vendors.
-      new ManifestCompatPlugin({
-        manifestPath,
-        browser
-      }).apply(compiler)
+    if (devOptions.port) {
+      rspackArgs.push('--port', devOptions.port.toString())
     }
-  }
+
+    const command = `npm run ${rspackArgs.join(' ')}`
+
+    const server = exec(
+      command,
+      {cwd: projectPath},
+      (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error starting Rspack server: ${error.message}`)
+          reject(error)
+          return
+        }
+        if (stderr) {
+          console.error(`Rspack server stderr: ${stderr}`)
+        }
+        console.log(`Rspack server stdout: ${stdout}`)
+      }
+    )
+
+    server.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(`Rspack server process exited with code ${code}`))
+      } else {
+        resolve()
+      }
+    })
+  })
 }

@@ -1,5 +1,5 @@
 import path from 'path'
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 
 import {type IncludeList, type StepPluginInterface} from '../types'
 
@@ -14,7 +14,7 @@ export default class EnsureHMRForScripts {
     this.exclude = options.exclude || []
   }
 
-  public apply(compiler: webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     compiler.options.module.rules.push({
       test: /\.(t|j)sx?$/,
       use: [

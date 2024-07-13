@@ -5,8 +5,7 @@
 // ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
 // ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝
 
-import type webpack from 'webpack'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import rspack from '@rspack/core'
 
 import {isUsingTailwind} from '../options/tailwind'
 
@@ -14,9 +13,9 @@ export default function getCommonStyleLoaders(
   projectDir: string,
   opts: any
 ): any {
-  const styleLoaders: webpack.RuleSetUse = [
+  const styleLoaders: rspack.RuleSetUse = [
     opts.useMiniCssExtractPlugin
-      ? MiniCssExtractPlugin.loader
+      ? rspack.CssExtractRspackPlugin.loader
       : require.resolve('style-loader'),
     require.resolve('css-loader'),
     {

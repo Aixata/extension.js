@@ -1,4 +1,4 @@
-import type webpack from 'webpack'
+import {type Compiler} from '@rspack/core'
 import {type RunEdgeExtensionInterface} from '../../types'
 import ApplyManifestDevDefaults from './ApplyManifestDevDefaults'
 import TargetWebExtensionPlugin from './TargetWebExtensionPlugin'
@@ -11,7 +11,7 @@ class SetupReloadStrategy {
     this.manifestPath = options.manifestPath
   }
 
-  public apply(compiler: webpack.Compiler) {
+  public apply(compiler: Compiler) {
     // 1 - Ensure the background scripts (and service_worker) can
     // receive messages from the extension reload plugin.
     AddRuntimeListener(compiler, this.manifestPath)

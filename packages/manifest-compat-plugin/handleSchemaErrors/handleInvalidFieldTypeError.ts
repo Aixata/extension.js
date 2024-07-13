@@ -1,4 +1,4 @@
-import {WebpackError, type Compilation} from 'webpack'
+import {WebpackError, type Compilation} from '@rspack/core'
 import {type ErrorObject} from 'ajv'
 import {bold, yellow, cyan} from '@colors/colors'
 import {getManifestDocumentationURL} from '../helpers/getDocUrl'

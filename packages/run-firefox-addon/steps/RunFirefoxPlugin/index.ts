@@ -1,7 +1,7 @@
 import fs from 'fs'
 import {exec} from 'child_process'
 import {bgWhite, green, red, bold, blue} from '@colors/colors/safe'
-import {type Compiler} from 'webpack'
+import {type Compiler} from '@rspack/core'
 // @ts-ignore
 import firefox from './firefoxLocation'
 import {type RunFirefoxExtensionInterface} from '../../types'

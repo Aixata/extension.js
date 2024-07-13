@@ -1,4 +1,4 @@
-// webpack uses JavaScript entries to enable HMR
+// rspack uses JavaScript entries to enable HMR
 // but sometimes the user HTML file might not have a script tag
 // declared. So we ensure HTML entries have at least one script,
 // and that script is HMR enabled.

@@ -1,5 +1,5 @@
 import WebSocket from 'ws'
-import {type Compiler} from 'webpack'
+import {type Compiler} from '@rspack/core'
 import messages from '../../../helpers/messages'
 import {type StatsPreset} from '../../../types'
 import {type ManifestBase} from '../../../manifest-types'

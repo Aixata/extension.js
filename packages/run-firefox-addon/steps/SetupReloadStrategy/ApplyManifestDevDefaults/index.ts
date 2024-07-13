@@ -1,5 +1,5 @@
-import type webpack from 'webpack'
-import {Compilation, sources} from 'webpack'
+import rspack, {type Compiler} from '@rspack/core'
+import {Compilation, sources} from '@rspack/core'
 import {patchV2CSP, patchV3CSP} from './patchCSP'
 import patchGeckoId from './patchGeckoId'
 import {patchWebResourcesV2, patchWebResourcesV3} from './patchWebResources'
@@ -16,7 +16,7 @@ class ApplyManifestDevDefaultsPlugin {
     this.manifestPath = options.manifestPath
   }
 
-  private generateManifestPatches(compilation: webpack.Compilation) {
+  private generateManifestPatches(compilation: Compilation) {
     const manifest = utils.getManifestContent(compilation, this.manifestPath!)
 
     const patchedManifest: ManifestBase = {
@@ -73,11 +73,11 @@ class ApplyManifestDevDefaultsPlugin {
     }
   }
 
-  apply(compiler: webpack.Compiler) {
+  apply(compiler: Compiler) {
     compiler.hooks.thisCompilation.tap(
       'RunFirefoxExtension (ApplyManifestDevDefaults)',
       (compilation) => {
-        const Error = compiler.webpack.WebpackError
+        const Error = rspack.WebpackError
 
         compilation.hooks.processAssets.tap(
           {

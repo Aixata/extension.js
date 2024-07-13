@@ -41,17 +41,52 @@ export default function jsLoaders(projectDir: string, opts: any) {
     : /\.(js|mjs|jsx|mjsx)$/
 
   const jsLoaders: Loader[] = [
-    // https://webpack.js.org/loaders/babel-loader/
-    // https://babeljs.io/docs/en/babel-loader
     {
-      test: files,
-      include: projectDir,
-      exclude: /node_modules/,
-      loader: require.resolve('babel-loader'),
-      options: babelConfig(projectDir, {
-        mode: opts.mode,
-        typescript: isUsingTypeScript(projectDir)
-      })
+      test: /\.(j|t)s$/,
+      exclude: [/[\\/]node_modules[\\/]/],
+      loader: 'builtin:swc-loader',
+      options: {
+        jsc: {
+          parser: {
+            syntax: 'typescript'
+          },
+          externalHelpers: true,
+          transform: {
+            react: {
+              runtime: 'automatic',
+              development: opts.mode === 'development',
+              refresh: opts.mode === 'development'
+            }
+          }
+        },
+        env: {
+          targets: 'Chrome >= 48'
+        }
+      }
+    },
+    {
+      test: /\.(j|t)sx$/,
+      loader: 'builtin:swc-loader',
+      exclude: [/[\\/]node_modules[\\/]/],
+      options: {
+        jsc: {
+          parser: {
+            syntax: 'typescript',
+            tsx: true
+          },
+          transform: {
+            react: {
+              runtime: 'automatic',
+              development: opts.mode === 'development',
+              refresh: opts.mode === 'development'
+            }
+          },
+          externalHelpers: true
+        },
+        env: {
+          targets: 'Chrome >= 48' // browser compatibility
+        }
+      }
     }
   ]
 
